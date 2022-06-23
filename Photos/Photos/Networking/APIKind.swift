@@ -8,17 +8,20 @@
 import Foundation
 
 enum APIKind {
-    case listPhotos(page: Int)
+    case listPhotos(page: Int, countPerPage: Int)
     
     var path: String {
         switch self {
-        case .listPhotos: return "photos"
+        case .listPhotos:
+            return "photos"
         }
     }
     
     var queryItems: [URLQueryItem]? {
         switch self {
-        case .listPhotos(let page): return [URLQueryItem(name: "page", value: "\(page)")]
+        case .listPhotos(let page, let countPerPage):
+            return [URLQueryItem(name: "page", value: "\(page)"),
+                    URLQueryItem(name: "per_page", value: "\(countPerPage)")]
         }
     }
 }
