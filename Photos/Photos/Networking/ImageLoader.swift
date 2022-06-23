@@ -8,24 +8,29 @@
 import UIKit.UIImage
 
 struct ImageLoader: ImageLoadable {
-    let cache = Cache<URL, UIImage>()
-    let dataLoader: DataLoadable
+    private let cache: Cache<URL, UIImage>
     
-    init(dataLoader: DataLoadable = DataLoader()) {
-        self.dataLoader = dataLoader
+    init(cache: Cache<URL, UIImage> = .init()) {
+        self.cache = cache
     }
     
-    func loadImage(for url: URL, completion: @escaping () -> Void) {
-        guard cache[url] == nil else {
-            completion()
+    func loadImage(for url: URL, completion: @escaping (Result<UIImage, LoadingError>) -> Void) {
+        if let cachedImage = cache[url] {
+            completion(.success(cachedImage))
             return
         }
         
         DispatchQueue.global().async {
-            guard let data = try? Data(contentsOf: url) else { return }
-            guard let image = UIImage(data: data)?.scaledToScreenWidth() else { return }
+            guard let data = try? Data(contentsOf: url) else {
+                completion(.failure(.invalidURL))
+                return
+            }
+            guard let image = UIImage(data: data)?.scaledToScreenWidth() else {
+                completion(.failure(.invalidImageData))
+                return
+            }
             cache[url] = image
-            completion()
+            completion(.success(image))
         }
     }
 }

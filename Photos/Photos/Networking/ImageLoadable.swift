@@ -5,8 +5,8 @@
 //  Created by Yeojin Yoon on 2022/06/23.
 //
 
-import Foundation
+import UIKit.UIImage
 
 protocol ImageLoadable {
-    func loadImage(for url: URL, completion: @escaping () -> Void)
+    func loadImage(for url: URL, completion: @escaping (Result<UIImage, LoadingError>) -> Void)
 }
