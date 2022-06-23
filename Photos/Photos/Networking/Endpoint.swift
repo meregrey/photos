@@ -8,12 +8,11 @@
 import Foundation
 
 struct Endpoint {
-    let apiKind: APIKind
-    
     private let scheme = "https"
     private let host = "api.unsplash.com"
     private let headerField = "Authorization"
     private let headerValue = "Client-ID \(Authentication.accessKey)"
+    private let apiKind: APIKind
     
     private var url: URL? {
         var components = URLComponents()

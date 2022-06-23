@@ -8,7 +8,7 @@
 import Foundation
 
 struct DataLoader: DataLoadable {
-    let urlSession: URLSession
+    private let urlSession: URLSession
     
     init(urlSession: URLSession = .shared) {
         self.urlSession = urlSession

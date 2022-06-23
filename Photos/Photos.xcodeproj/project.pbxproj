@@ -25,6 +25,12 @@
 		67B611902863FAD100789870 /* ImageLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B6118F2863FAD100789870 /* ImageLoadable.swift */; };
 		67B611922863FF2300789870 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B611912863FF2300789870 /* Cache.swift */; };
 		67B611942864064C00789870 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B611932864064C00789870 /* UIImage.swift */; };
+		67B6119928642B3400789870 /* DataLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B6119828642B3400789870 /* DataLoaderTests.swift */; };
+		67B6119B28642BB000789870 /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B6119A28642BB000789870 /* MockURLProtocol.swift */; };
+		67B611A32864322300789870 /* PhotoListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B611A22864322300789870 /* PhotoListViewModelTests.swift */; };
+		67B611A5286433FF00789870 /* MockImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B611A4286433FF00789870 /* MockImageLoader.swift */; };
+		67B611A72864344600789870 /* MockDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B611A62864344600789870 /* MockDataLoader.swift */; };
+		67B611AA2864563800789870 /* ImageLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B611A92864563800789870 /* ImageLoaderTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +65,12 @@
 		67B6118F2863FAD100789870 /* ImageLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadable.swift; sourceTree = "<group>"; };
 		67B611912863FF2300789870 /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		67B611932864064C00789870 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		67B6119828642B3400789870 /* DataLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoaderTests.swift; sourceTree = "<group>"; };
+		67B6119A28642BB000789870 /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
+		67B611A22864322300789870 /* PhotoListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoListViewModelTests.swift; sourceTree = "<group>"; };
+		67B611A4286433FF00789870 /* MockImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockImageLoader.swift; sourceTree = "<group>"; };
+		67B611A62864344600789870 /* MockDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataLoader.swift; sourceTree = "<group>"; };
+		67B611A92864563800789870 /* ImageLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +124,9 @@
 		67B6114F286349D300789870 /* PhotosTests */ = {
 			isa = PBXGroup;
 			children = (
+				67B611A1286431A800789870 /* PhotoListViewModel */,
+				67B611A82864562C00789870 /* ImageLoader */,
+				67B6119728642B2400789870 /* DataLoader */,
 			);
 			path = PhotosTests;
 			sourceTree = "<group>";
@@ -186,6 +201,33 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		67B6119728642B2400789870 /* DataLoader */ = {
+			isa = PBXGroup;
+			children = (
+				67B6119828642B3400789870 /* DataLoaderTests.swift */,
+				67B6119A28642BB000789870 /* MockURLProtocol.swift */,
+			);
+			path = DataLoader;
+			sourceTree = "<group>";
+		};
+		67B611A1286431A800789870 /* PhotoListViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				67B611A22864322300789870 /* PhotoListViewModelTests.swift */,
+				67B611A62864344600789870 /* MockDataLoader.swift */,
+				67B611A4286433FF00789870 /* MockImageLoader.swift */,
+			);
+			path = PhotoListViewModel;
+			sourceTree = "<group>";
+		};
+		67B611A82864562C00789870 /* ImageLoader */ = {
+			isa = PBXGroup;
+			children = (
+				67B611A92864563800789870 /* ImageLoaderTests.swift */,
+			);
+			path = ImageLoader;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -239,6 +281,7 @@
 					};
 					67B6114B286349D300789870 = {
 						CreatedOnToolsVersion = 13.4.1;
+						LastSwiftMigration = 1340;
 						TestTargetID = 67B61135286349D200789870;
 					};
 				};
@@ -309,6 +352,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67B611A5286433FF00789870 /* MockImageLoader.swift in Sources */,
+				67B6119928642B3400789870 /* DataLoaderTests.swift in Sources */,
+				67B611AA2864563800789870 /* ImageLoaderTests.swift in Sources */,
+				67B611A72864344600789870 /* MockDataLoader.swift in Sources */,
+				67B611A32864322300789870 /* PhotoListViewModelTests.swift in Sources */,
+				67B6119B28642BB000789870 /* MockURLProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -519,15 +568,22 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = LW42B33394;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yeojin-yoon.PhotosTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Photos.app/Photos";
@@ -539,11 +595,17 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = LW42B33394;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yeojin-yoon.PhotosTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
