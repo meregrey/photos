@@ -10,10 +10,10 @@ import Foundation
 final class PhotoListViewModel {
     let photos: Observable<[Photo]> = Observable([])
     let isLoading: Observable<Bool> = Observable(false)
-    let dataLoader: DataLoadable
-    let imageLoader: ImageLoadable
     
-    private let countPerPage = 10
+    private let countPerPage: Int
+    private let dataLoader: DataLoadable
+    private let imageLoader: ImageLoadable
     
     private var page = 1
     private var photosToAppend = [Photo]() {
@@ -26,13 +26,16 @@ final class PhotoListViewModel {
         }
     }
     
-    init(dataLoader: DataLoadable = DataLoader(), imageLoader: ImageLoadable = ImageLoader()) {
+    init(countPerPage: Int = 10,
+         dataLoader: DataLoadable = DataLoader(),
+         imageLoader: ImageLoadable = ImageLoader()) {
+        self.countPerPage = countPerPage
         self.dataLoader = dataLoader
         self.imageLoader = imageLoader
     }
     
     func fetchPhotos(errorHandler: @escaping (LoadingError) -> Void) {
-        let endpoint = Endpoint(for: .listPhotos(page: page))
+        let endpoint = Endpoint(for: .listPhotos(page: page, countPerPage: countPerPage))
         
         dataLoader.fetch(with: endpoint) { (result: Result<[Photo], LoadingError>) in
             switch result {
@@ -40,8 +43,13 @@ final class PhotoListViewModel {
                 self.isLoading.value = true
                 photos.forEach { photo in
                     guard let url = photo.url else { return }
-                    self.imageLoader.loadImage(for: url) {
-                        self.photosToAppend.append(photo)
+                    self.imageLoader.loadImage(for: url) { result in
+                        switch result {
+                        case .success(_):
+                            self.photosToAppend.append(photo)
+                        case .failure(let error):
+                            errorHandler(error)
+                        }
                     }
                 }
             case .failure(let error):
