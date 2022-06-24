@@ -4,29 +4,73 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Photo List View Controller-->
         <scene sceneID="h14-O6-xil">
             <objects>
-                <viewController id="11n-rK-OcA" sceneMemberID="viewController">
+                <viewController id="11n-rK-OcA" customClass="PhotoListViewController" customModule="Photos" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="k38-Jo-B7Q">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="GcP-2n-uV9">
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PhotoListCell" id="gdl-Fp-auU" customClass="PhotoListCell" customModule="Photos" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gdl-Fp-auU" id="TXt-9L-Pgj">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UTf-xT-SDZ">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tnO-pk-4dv">
+                                                    <rect key="frame" x="20" y="2.5" width="374" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="UTf-xT-SDZ" secondAttribute="bottom" id="GuG-NZ-Eke"/>
+                                                <constraint firstAttribute="trailing" secondItem="UTf-xT-SDZ" secondAttribute="trailing" id="KUa-W1-ifB"/>
+                                                <constraint firstItem="UTf-xT-SDZ" firstAttribute="top" secondItem="TXt-9L-Pgj" secondAttribute="top" id="PQY-1y-6fu"/>
+                                                <constraint firstItem="UTf-xT-SDZ" firstAttribute="leading" secondItem="TXt-9L-Pgj" secondAttribute="leading" id="fU4-mz-M1q"/>
+                                                <constraint firstItem="tnO-pk-4dv" firstAttribute="leading" secondItem="TXt-9L-Pgj" secondAttribute="leading" constant="20" id="tD5-RB-Gdj"/>
+                                                <constraint firstAttribute="trailing" secondItem="tnO-pk-4dv" secondAttribute="trailing" constant="20" id="uVB-Ek-7ka"/>
+                                                <constraint firstAttribute="bottom" secondItem="tnO-pk-4dv" secondAttribute="bottom" constant="20" id="vrt-PW-zlR"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="photoImageView" destination="UTf-xT-SDZ" id="UKX-e4-414"/>
+                                            <outlet property="userNameLabel" destination="tnO-pk-4dv" id="1HL-JJ-doz"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="VkS-zx-NQE"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="GcP-2n-uV9" firstAttribute="top" secondItem="VkS-zx-NQE" secondAttribute="top" id="TQR-Mo-LoO"/>
+                            <constraint firstItem="GcP-2n-uV9" firstAttribute="leading" secondItem="VkS-zx-NQE" secondAttribute="leading" id="ddL-zx-VFD"/>
+                            <constraint firstItem="GcP-2n-uV9" firstAttribute="bottom" secondItem="k38-Jo-B7Q" secondAttribute="bottom" id="sYg-YZ-CBp"/>
+                            <constraint firstItem="VkS-zx-NQE" firstAttribute="trailing" secondItem="GcP-2n-uV9" secondAttribute="trailing" id="tm7-cb-NAl"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="GcP-2n-uV9" id="y50-YY-fa7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pPg-6l-jLJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1" y="57"/>
         </scene>
     </scenes>
-    <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>
