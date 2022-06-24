@@ -31,6 +31,12 @@
 		67B611A5286433FF00789870 /* MockImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B611A4286433FF00789870 /* MockImageLoader.swift */; };
 		67B611A72864344600789870 /* MockDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B611A62864344600789870 /* MockDataLoader.swift */; };
 		67B611AA2864563800789870 /* ImageLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B611A92864563800789870 /* ImageLoaderTests.swift */; };
+		67B611AC28652F6100789870 /* PhotoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B611AB28652F6100789870 /* PhotoListViewController.swift */; };
+		67B611AE286531E100789870 /* PhotoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B611AD286531E100789870 /* PhotoListCell.swift */; };
+		67B611B02865366F00789870 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B611AF2865366F00789870 /* UIView.swift */; };
+		67B611B2286537F500789870 /* PhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B611B1286537F500789870 /* PhotoViewModel.swift */; };
+		67B611B628657CAE00789870 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B611B528657CAE00789870 /* UIViewController.swift */; };
+		67B611B828657E3100789870 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B611B728657E3100789870 /* Alert.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +77,12 @@
 		67B611A4286433FF00789870 /* MockImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockImageLoader.swift; sourceTree = "<group>"; };
 		67B611A62864344600789870 /* MockDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataLoader.swift; sourceTree = "<group>"; };
 		67B611A92864563800789870 /* ImageLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderTests.swift; sourceTree = "<group>"; };
+		67B611AB28652F6100789870 /* PhotoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoListViewController.swift; sourceTree = "<group>"; };
+		67B611AD286531E100789870 /* PhotoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoListCell.swift; sourceTree = "<group>"; };
+		67B611AF2865366F00789870 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		67B611B1286537F500789870 /* PhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewModel.swift; sourceTree = "<group>"; };
+		67B611B528657CAE00789870 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		67B611B728657E3100789870 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +183,7 @@
 			children = (
 				67B6118A2863EADC00789870 /* Extensions */,
 				67B611892863EAD200789870 /* Models */,
+				67B611B728657E3100789870 /* Alert.swift */,
 				67B611912863FF2300789870 /* Cache.swift */,
 				67B611822863E93700789870 /* Observable.swift */,
 			);
@@ -180,7 +193,10 @@
 		67B611842863E9A500789870 /* PhotoList */ = {
 			isa = PBXGroup;
 			children = (
+				67B611AB28652F6100789870 /* PhotoListViewController.swift */,
+				67B611AD286531E100789870 /* PhotoListCell.swift */,
 				67B611852863E9C400789870 /* PhotoListViewModel.swift */,
+				67B611B1286537F500789870 /* PhotoViewModel.swift */,
 			);
 			path = PhotoList;
 			sourceTree = "<group>";
@@ -197,6 +213,8 @@
 			isa = PBXGroup;
 			children = (
 				67B611932864064C00789870 /* UIImage.swift */,
+				67B611AF2865366F00789870 /* UIView.swift */,
+				67B611B528657CAE00789870 /* UIViewController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -334,7 +352,9 @@
 				67B611802863E6F400789870 /* APIKind.swift in Sources */,
 				67B6117E2863E53400789870 /* Authentication.swift in Sources */,
 				67B611902863FAD100789870 /* ImageLoadable.swift in Sources */,
+				67B611AE286531E100789870 /* PhotoListCell.swift in Sources */,
 				67B6118E2863FAA200789870 /* ImageLoader.swift in Sources */,
+				67B611B828657E3100789870 /* Alert.swift in Sources */,
 				67B6113A286349D200789870 /* AppDelegate.swift in Sources */,
 				67B611942864064C00789870 /* UIImage.swift in Sources */,
 				67B611862863E9C400789870 /* PhotoListViewModel.swift in Sources */,
@@ -342,8 +362,12 @@
 				67B611832863E93700789870 /* Observable.swift in Sources */,
 				67B6117C2863E35E00789870 /* DataLoader.swift in Sources */,
 				67B611882863E9F200789870 /* Photo.swift in Sources */,
+				67B611B628657CAE00789870 /* UIViewController.swift in Sources */,
 				67B611762863E26100789870 /* DataLoadable.swift in Sources */,
+				67B611AC28652F6100789870 /* PhotoListViewController.swift in Sources */,
+				67B611B2286537F500789870 /* PhotoViewModel.swift in Sources */,
 				67B6113C286349D200789870 /* SceneDelegate.swift in Sources */,
+				67B611B02865366F00789870 /* UIView.swift in Sources */,
 				67B6117A2863E2CE00789870 /* Endpoint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
