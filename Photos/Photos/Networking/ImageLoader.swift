@@ -8,6 +8,8 @@
 import UIKit.UIImage
 
 struct ImageLoader: ImageLoadable {
+    static let shared = ImageLoader()
+    
     private let cache: Cache<URL, UIImage>
     
     init(cache: Cache<URL, UIImage> = .init()) {
@@ -32,5 +34,9 @@ struct ImageLoader: ImageLoadable {
             cache[url] = image
             completion(.success(image))
         }
+    }
+    
+    func image(for url: URL) -> UIImage? {
+        return cache[url]
     }
 }
