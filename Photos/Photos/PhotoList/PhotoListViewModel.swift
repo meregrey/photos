@@ -28,7 +28,7 @@ final class PhotoListViewModel {
     
     init(countPerPage: Int = 10,
          dataLoader: DataLoadable = DataLoader(),
-         imageLoader: ImageLoadable = ImageLoader()) {
+         imageLoader: ImageLoadable = ImageLoader.shared) {
         self.countPerPage = countPerPage
         self.dataLoader = dataLoader
         self.imageLoader = imageLoader
