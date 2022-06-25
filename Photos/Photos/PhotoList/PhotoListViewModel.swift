@@ -8,7 +8,7 @@
 import Foundation
 
 final class PhotoListViewModel {
-    let photos: Observable<[Photo]> = Observable([])
+    let photoList: Observable<(photos: [Photo], latestRange: Range<Int>)> = Observable(([], 0..<0))
     let isLoading: Observable<Bool> = Observable(false)
     
     private let countPerPage: Int
@@ -19,7 +19,7 @@ final class PhotoListViewModel {
     private var photosToAppend = [Photo]() {
         didSet {
             guard photosToAppend.count == countPerPage else { return }
-            photos.value.append(contentsOf: photosToAppend)
+            photoList.value = makePhotoList()
             isLoading.value = false
             page += 1
             photosToAppend = []
@@ -56,5 +56,13 @@ final class PhotoListViewModel {
                 errorHandler(error)
             }
         }
+    }
+    
+    private func makePhotoList() -> ([Photo], Range<Int>) {
+        let existingCount = photoList.value.photos.count
+        let range = existingCount..<(existingCount + countPerPage)
+        var photos = photoList.value.photos
+        photos.append(contentsOf: photosToAppend)
+        return (photos, range)
     }
 }
