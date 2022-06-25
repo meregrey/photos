@@ -25,9 +25,10 @@ final class PhotoListViewController: UIViewController {
     }
     
     private func bindViewModel() {
-        viewModel.photos.bind { [weak self] _ in
+        viewModel.photoList.bind { [weak self] photoList in
             DispatchQueue.main.async {
-                self?.tableView.reloadData()
+                let indexPaths = photoList.latestRange.map { IndexPath(row: $0, section: 0) }
+                self?.tableView.insertRows(at: indexPaths, with: .automatic)
             }
         }
     }
@@ -43,12 +44,12 @@ final class PhotoListViewController: UIViewController {
 
 extension PhotoListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.photos.value.count
+        return viewModel.photoList.value.photos.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: PhotoListCell = tableView.dequeueReusableCell(for: indexPath)
-        let photo = viewModel.photos.value[indexPath.row]
+        let photo = viewModel.photoList.value.photos[indexPath.row]
         guard let photoViewModel = PhotoViewModel(photo: photo) else { return cell }
         cell.configure(with: photoViewModel)
         return cell
