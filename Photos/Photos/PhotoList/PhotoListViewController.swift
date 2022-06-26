@@ -43,16 +43,26 @@ final class PhotoListViewController: UIViewController {
 }
 
 extension PhotoListViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.photoList.value.photos.count
+        return section == 0 ? viewModel.photoList.value.photos.count : 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: PhotoListCell = tableView.dequeueReusableCell(for: indexPath)
-        let photo = viewModel.photoList.value.photos[indexPath.row]
-        guard let photoViewModel = PhotoViewModel(photo: photo) else { return cell }
-        cell.configure(with: photoViewModel)
-        return cell
+        if indexPath.section == 0 {
+            let cell: PhotoListCell = tableView.dequeueReusableCell(for: indexPath)
+            let photo = viewModel.photoList.value.photos[indexPath.row]
+            guard let photoViewModel = PhotoViewModel(photo: photo) else { return cell }
+            cell.configure(with: photoViewModel)
+            return cell
+        } else {
+            let cell: LoadingCell = tableView.dequeueReusableCell(for: indexPath)
+            cell.startAnimating()
+            return cell
+        }
     }
 }
 
