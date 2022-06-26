@@ -52,6 +52,28 @@
                                             <outlet property="userNameLabel" destination="tnO-pk-4dv" id="1HL-JJ-doz"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LoadingCell" rowHeight="50" id="wQb-Pa-Bes" customClass="LoadingCell" customModule="Photos" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="88" width="414" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wQb-Pa-Bes" id="xNx-AY-WP9">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="C9P-A7-BZ5">
+                                                    <rect key="frame" x="197" y="15" width="20" height="20"/>
+                                                    <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="C9P-A7-BZ5" firstAttribute="centerY" secondItem="xNx-AY-WP9" secondAttribute="centerY" id="F8u-eE-QGk"/>
+                                                <constraint firstItem="C9P-A7-BZ5" firstAttribute="centerX" secondItem="xNx-AY-WP9" secondAttribute="centerX" id="aVb-fC-NMc"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="activityIndicator" destination="C9P-A7-BZ5" id="W1x-Ne-B84"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
