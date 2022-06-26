@@ -9,18 +9,16 @@ import Foundation
 
 final class PhotoListViewModel {
     let photoList: Observable<(photos: [Photo], latestRange: Range<Int>)> = Observable(([], 0..<0))
-    let isLoading: Observable<Bool> = Observable(false)
     
     private let countPerPage: Int
     private let dataLoader: DataLoadable
     private let imageLoader: ImageLoadable
     
-    private var page = 1
-    private var photosToAppend = [Photo]() {
+    private var page: Int = 1
+    private var photosToAppend: [Photo] = [] {
         didSet {
             guard photosToAppend.count == countPerPage else { return }
             photoList.value = makePhotoList()
-            isLoading.value = false
             page += 1
             photosToAppend = []
         }
@@ -40,7 +38,6 @@ final class PhotoListViewModel {
         dataLoader.fetch(with: endpoint) { (result: Result<[Photo], LoadingError>) in
             switch result {
             case .success(let photos):
-                self.isLoading.value = true
                 photos.forEach { photo in
                     guard let url = photo.url else { return }
                     self.imageLoader.loadImage(for: url) { result in
