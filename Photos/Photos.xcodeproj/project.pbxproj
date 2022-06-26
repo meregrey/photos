@@ -37,6 +37,7 @@
 		67B611B2286537F500789870 /* PhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B611B1286537F500789870 /* PhotoViewModel.swift */; };
 		67B611B628657CAE00789870 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B611B528657CAE00789870 /* UIViewController.swift */; };
 		67B611B828657E3100789870 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B611B728657E3100789870 /* Alert.swift */; };
+		67B611BC286755EE00789870 /* LoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B611BB286755EE00789870 /* LoadingCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,7 @@
 		67B611B1286537F500789870 /* PhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewModel.swift; sourceTree = "<group>"; };
 		67B611B528657CAE00789870 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		67B611B728657E3100789870 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		67B611BB286755EE00789870 /* LoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +197,7 @@
 			children = (
 				67B611AB28652F6100789870 /* PhotoListViewController.swift */,
 				67B611AD286531E100789870 /* PhotoListCell.swift */,
+				67B611BB286755EE00789870 /* LoadingCell.swift */,
 				67B611852863E9C400789870 /* PhotoListViewModel.swift */,
 				67B611B1286537F500789870 /* PhotoViewModel.swift */,
 			);
@@ -362,6 +365,7 @@
 				67B611832863E93700789870 /* Observable.swift in Sources */,
 				67B6117C2863E35E00789870 /* DataLoader.swift in Sources */,
 				67B611882863E9F200789870 /* Photo.swift in Sources */,
+				67B611BC286755EE00789870 /* LoadingCell.swift in Sources */,
 				67B611B628657CAE00789870 /* UIViewController.swift in Sources */,
 				67B611762863E26100789870 /* DataLoadable.swift in Sources */,
 				67B611AC28652F6100789870 /* PhotoListViewController.swift in Sources */,
