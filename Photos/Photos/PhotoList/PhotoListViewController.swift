@@ -19,6 +19,20 @@ final class PhotoListViewController: UIViewController {
         fetchPhotos()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        configureNavigationBar()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        guard let destination = segue.destination as? PhotoDetailViewController else { return }
+        guard let indexPath = tableView.indexPathForSelectedRow else { return }
+        let photo = viewModel.photoList.value.photos[indexPath.row]
+        guard let photoViewModel = PhotoViewModel(photo: photo) else { return }
+        destination.viewModel = photoViewModel
+    }
+    
     private func configureTableView() {
         tableView.dataSource = self
         tableView.delegate = self
@@ -39,6 +53,10 @@ final class PhotoListViewController: UIViewController {
                 self?.displayAlert(message: error.message)
             }
         }
+    }
+    
+    private func configureNavigationBar() {
+        navigationController?.isNavigationBarHidden = true
     }
 }
 
