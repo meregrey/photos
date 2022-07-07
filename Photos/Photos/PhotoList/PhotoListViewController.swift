@@ -40,19 +40,29 @@ final class PhotoListViewController: UIViewController {
     
     private func bindViewModel() {
         viewModel.photoList.bind { [weak self] photoList in
-            DispatchQueue.main.async {
-                let indexPaths = photoList.latestRange.map { IndexPath(row: $0, section: 0) }
-                self?.tableView.insertRows(at: indexPaths, with: .automatic)
+            Task {
+                await MainActor.run {
+                    let indexPaths = photoList.latestRange.map { IndexPath(row: $0, section: 0) }
+                    self?.tableView.insertRows(at: indexPaths, with: .automatic)
+                }
             }
         }
     }
     
     private func fetchPhotos() {
-        viewModel.fetchPhotos { [weak self] error in
-            DispatchQueue.main.async {
-                self?.displayAlert(message: error.message)
+        Task {
+            do {
+                try await viewModel.fetchPhotos()
+            } catch {
+                displayAlert(with: error)
             }
         }
+    }
+    
+    @MainActor
+    private func displayAlert(with error: Error) {
+        let message = (error as? LoadingError)?.localizedDescription ?? error.localizedDescription
+        displayAlert(message: message)
     }
     
     private func configureNavigationBar() {
