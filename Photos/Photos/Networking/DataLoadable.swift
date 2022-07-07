@@ -8,5 +8,5 @@
 import Foundation
 
 protocol DataLoadable {
-    func fetch<T: Decodable>(with endpoint: Endpoint, completion: @escaping (Result<T, LoadingError>) -> Void)
+    func fetch<T: Decodable>(with endpoint: Endpoint) async throws -> T
 }

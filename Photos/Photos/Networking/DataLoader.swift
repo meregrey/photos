@@ -14,25 +14,10 @@ struct DataLoader: DataLoadable {
         self.urlSession = urlSession
     }
     
-    func fetch<T: Decodable>(with endpoint: Endpoint, completion: @escaping (Result<T, LoadingError>) -> Void) {
-        guard let request = endpoint.makeRequest() else { return }
-        
-        let task = urlSession.dataTask(with: request) { data, response, error in
-            guard error == nil else {
-                completion(.failure(.requestFailed(error: error!)))
-                return
-            }
-            guard let data = data else {
-                completion(.failure(.noData))
-                return
-            }
-            guard let result = try? JSONDecoder().decode(T.self, from: data) else {
-                completion(.failure(.decodingFailed))
-                return
-            }
-            completion(.success(result))
-        }
-        
-        task.resume()
+    func fetch<T: Decodable>(with endpoint: Endpoint) async throws -> T {
+        guard let request = endpoint.makeRequest() else { throw LoadingError.invalidRequest }
+        let (data, response) = try await urlSession.data(for: request)
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else { throw LoadingError.requestFailed }
+        return try JSONDecoder().decode(T.self, from: data)
     }
 }
