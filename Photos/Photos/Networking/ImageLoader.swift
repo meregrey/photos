@@ -7,36 +7,62 @@
 
 import UIKit.UIImage
 
-struct ImageLoader: ImageLoadable {
+@globalActor
+actor ImageLoader: ImageLoadable {
+    typealias ImageTask = Task<UIImage, Error>
+    
     static let shared = ImageLoader()
     
-    private let cache: Cache<URL, UIImage>
+    enum LoadingState {
+        case completed(UIImage)
+        case failed
+    }
     
-    init(cache: Cache<URL, UIImage> = .init()) {
+    private let cache: Cache<URL, LoadingState>
+    
+    private var runningTasks: [URL: ImageTask] = [:]
+    
+    init(cache: Cache<URL, LoadingState> = .init()) {
         self.cache = cache
     }
     
-    func loadImage(for url: URL, completion: @escaping (Result<UIImage, LoadingError>) -> Void) {
-        if let cachedImage = cache[url] {
-            completion(.success(cachedImage))
-            return
-        }
-        
-        DispatchQueue.global().async {
-            guard let data = try? Data(contentsOf: url) else {
-                completion(.failure(.invalidURL))
-                return
+    func loadImages(from urls: [URL]) async {
+        await withTaskGroup(of: Void.self) { group in
+            for url in urls {
+                guard cache[url] == nil else { continue }
+                guard runningTasks[url] == nil else { continue }
+                
+                group.addTask {
+                    await self.loadImage(from: url)
+                }
             }
-            guard let image = UIImage(data: data)?.scaledToScreenWidth() else {
-                completion(.failure(.invalidImageData))
-                return
-            }
-            cache[url] = image
-            completion(.success(image))
         }
     }
     
-    func image(for url: URL) -> UIImage? {
-        return cache[url]
+    nonisolated func image(for url: URL) -> UIImage? {
+        switch cache[url] {
+        case .completed(let image):
+            return image
+        default:
+            return nil
+        }
+    }
+    
+    private func loadImage(from url: URL) async {
+        let task: ImageTask = Task {
+            guard let data = try? Data(contentsOf: url) else { throw LoadingError.invalidURL }
+            guard let image = UIImage(data: data)?.scaledToScreenWidth() else { throw LoadingError.invalidImageData }
+            return image
+        }
+        
+        do {
+            runningTasks[url] = task
+            let image = try await task.value
+            cache[url] = .completed(image)
+            runningTasks[url] = nil
+        } catch {
+            cache[url] = .failed
+            runningTasks[url] = nil
+        }
     }
 }
