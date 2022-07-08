@@ -13,16 +13,16 @@ actor ImageLoader: ImageLoadable {
     
     static let shared = ImageLoader()
     
-    enum LoadingState {
+    enum LoadingResult {
         case completed(UIImage)
         case failed
     }
     
-    private let cache: Cache<URL, LoadingState>
+    private let cache: Cache<URL, LoadingResult>
     
     private var runningTasks: [URL: ImageTask] = [:]
     
-    init(cache: Cache<URL, LoadingState> = .init()) {
+    init(cache: Cache<URL, LoadingResult> = .init()) {
         self.cache = cache
     }
     
