@@ -10,6 +10,8 @@ import UIKit
 final class PhotoListViewController: UIViewController {
     private let viewModel = PhotoListViewModel()
     
+    private var isLoading = false
+    
     @IBOutlet private weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -44,6 +46,17 @@ final class PhotoListViewController: UIViewController {
                 await MainActor.run {
                     let indexPaths = photoList.latestRange.map { IndexPath(row: $0, section: 0) }
                     self?.tableView.insertRows(at: indexPaths, with: .automatic)
+                }
+            }
+        }
+        
+        viewModel.isLoading.bind { [weak self] isLoading in
+            Task {
+                await MainActor.run {
+                    guard let indexPath = self?.tableView.indexPathsForVisibleRows?.filter({ $0.section == 1 }).first else { return }
+                    guard let loadingCell = self?.tableView.cellForRow(at: indexPath) as? LoadingCell else { return }
+                    loadingCell.animate(isLoading)
+                    self?.isLoading = isLoading
                 }
             }
         }
@@ -88,7 +101,7 @@ extension PhotoListViewController: UITableViewDataSource {
             return cell
         } else {
             let cell: LoadingCell = tableView.dequeueReusableCell(for: indexPath)
-            cell.startAnimating()
+            cell.animate(isLoading)
             return cell
         }
     }
