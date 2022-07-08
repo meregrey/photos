@@ -8,5 +8,5 @@
 import UIKit.UIImage
 
 protocol ImageLoadable {
-    func loadImage(for url: URL, completion: @escaping (Result<UIImage, LoadingError>) -> Void)
+    func loadImages(from urls: [URL]) async
 }

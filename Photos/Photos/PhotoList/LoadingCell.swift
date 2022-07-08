@@ -10,7 +10,7 @@ import UIKit
 final class LoadingCell: UITableViewCell {
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
-    func startAnimating() {
-        activityIndicator.startAnimating()
+    func animate(_ flag: Bool) {
+        flag ? activityIndicator.startAnimating() : activityIndicator.stopAnimating()
     }
 }
