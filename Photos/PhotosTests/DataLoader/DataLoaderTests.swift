@@ -10,21 +10,21 @@ import XCTest
 
 final class DataLoaderTests: XCTestCase {
     private var sut: DataLoader!
+    private var urlSession: MockURLSession!
     
     override func setUp() {
         super.setUp()
-        let configuration = URLSessionConfiguration.ephemeral
-        configuration.protocolClasses = [MockURLProtocol.self]
-        let urlSession = URLSession(configuration: configuration)
+        urlSession = MockURLSession()
         sut = DataLoader(urlSession: urlSession)
     }
     
     override func tearDown() {
         sut = nil
+        urlSession = nil
         super.tearDown()
     }
     
-    func testFetch() {
+    func testFetch() async throws {
         // given
         let data = """
         [
@@ -38,28 +38,21 @@ final class DataLoaderTests: XCTestCase {
             }
         ]
         """.data(using: .utf8)!
-        MockURLProtocol.requestHandler = { request in
-            XCTAssertEqual(request.url?.query, "page=1&per_page=1")
-            return (data, URLResponse())
-        }
+        urlSession.data = data
         let endpoint = Endpoint(for: .listPhotos(page: 1, countPerPage: 1))
-        let expectation = XCTestExpectation()
         
-        // when
-        sut.fetch(with: endpoint) { (result: Result<[Photo], LoadingError>) in
+        do {
+            // when
+            let photos: [Photo] = try await sut.fetch(with: endpoint)
             // then
-            switch result {
-            case .success(let photos):
-                XCTAssertEqual(photos.first?.userName, "name_0")
-                expectation.fulfill()
-            case .failure(_):
-                XCTFail()
-            }
+            XCTAssertEqual(photos.first?.userName, "name_0")
+        } catch {
+            XCTFail()
         }
-        wait(for: [expectation], timeout: 1)
+        
     }
     
-    func testFetchWithFailure() {
+    func testFetchWithFailure() async throws {
         // given
         let data = """
         [
@@ -68,23 +61,16 @@ final class DataLoaderTests: XCTestCase {
             }
         ]
         """.data(using: .utf8)!
-        MockURLProtocol.requestHandler = { _ in
-            return (data, URLResponse())
-        }
+        urlSession.data = data
         let endpoint = Endpoint(for: .listPhotos(page: 1, countPerPage: 1))
-        let expectation = XCTestExpectation()
         
-        // when
-        sut.fetch(with: endpoint) { (result: Result<[Photo], LoadingError>) in
+        do {
+            // when
+            let _: [Photo] = try await sut.fetch(with: endpoint)
+            XCTFail()
+        } catch {
             // then
-            switch result {
-            case .success(_):
-                XCTFail()
-            case .failure(let error):
-                XCTAssertEqual(error.message, LoadingError.decodingFailed.message)
-                expectation.fulfill()
-            }
+            XCTAssertTrue(error is DecodingError)
         }
-        wait(for: [expectation], timeout: 1)
     }
 }
