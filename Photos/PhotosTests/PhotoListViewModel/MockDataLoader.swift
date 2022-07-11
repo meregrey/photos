@@ -11,11 +11,11 @@ import Foundation
 final class MockDataLoader: DataLoadable {
     var photos: [Photo]?
     
-    func fetch<T: Decodable>(with endpoint: Endpoint, completion: @escaping (Result<T, LoadingError>) -> Void) {
+    func fetch<T: Decodable>(with endpoint: Endpoint) async throws -> T {
         if let photos = photos {
-            completion(.success(photos as! T))
+            return photos as! T
         } else {
-            completion(.failure(.noData))
+            throw LoadingError.requestFailed
         }
     }
 }

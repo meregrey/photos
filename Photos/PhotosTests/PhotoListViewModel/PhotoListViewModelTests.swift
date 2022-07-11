@@ -11,21 +11,20 @@ import XCTest
 final class PhotoListViewModelTests: XCTestCase {
     private var sut: PhotoListViewModel!
     private var dataLoader: MockDataLoader!
-    private var imageLoader: MockImageLoader!
     
     override func setUp() {
         super.setUp()
         dataLoader = MockDataLoader()
-        imageLoader = MockImageLoader()
-        sut = PhotoListViewModel(countPerPage: 1, dataLoader: dataLoader, imageLoader: imageLoader)
+        sut = PhotoListViewModel(countPerPage: 1, dataLoader: dataLoader)
     }
     
     override func tearDown() {
         sut = nil
+        dataLoader = nil
         super.tearDown()
     }
     
-    func testFetchPhotos() {
+    func testFetchPhotos() async throws {
         // given
         let data = """
         [
@@ -41,30 +40,28 @@ final class PhotoListViewModelTests: XCTestCase {
         """.data(using: .utf8)!
         let photos = try! JSONDecoder().decode([Photo].self, from: data)
         dataLoader.photos = photos
-        let expectation = XCTestExpectation()
         
-        // when
-        sut.photos.bind {
+        do {
+            // when
+            try await sut.fetchPhotos()
             // then
-            if $0.count == 0 { return }
-            XCTAssertEqual($0.first?.userName, "name_0")
-            expectation.fulfill()
+            XCTAssertEqual(sut.photoList.value.photos.first?.userName, "name_0")
+        } catch {
+            XCTFail()
         }
-        sut.fetchPhotos { _ in }
-        wait(for: [expectation], timeout: 1)
     }
     
-    func testFetchPhotosWithFailure() {
+    func testFetchPhotosWithFailure() async throws {
         // given
         dataLoader.photos = nil
-        let expectation = XCTestExpectation()
         
-        // when
-        sut.fetchPhotos {
+        do {
+            // when
+            try await sut.fetchPhotos()
+            XCTFail()
+        } catch {
             // then
-            XCTAssertEqual($0.message, LoadingError.noData.message)
-            expectation.fulfill()
+            XCTAssertTrue(error is LoadingError)
         }
-        wait(for: [expectation], timeout: 1)
     }
 }
