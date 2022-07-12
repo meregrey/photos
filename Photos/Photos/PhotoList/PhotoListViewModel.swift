@@ -9,6 +9,7 @@ import Foundation
 
 final class PhotoListViewModel {
     let photoList: Observable<(photos: [Photo], latestRange: Range<Int>)> = Observable(([], 0..<0))
+    let isLoading: Observable<Bool> = Observable(false)
     
     private let countPerPage: Int
     private let dataLoader: DataLoadable
@@ -26,6 +27,7 @@ final class PhotoListViewModel {
     
     func fetchPhotos(errorHandler: @escaping (LoadingError) -> Void) {
         let endpoint = Endpoint(for: .listPhotos(page: page, countPerPage: countPerPage))
+        isLoading.value = true
         
         dataLoader.fetch(with: endpoint) { (result: Result<[Photo], LoadingError>) in
             switch result {
@@ -33,9 +35,11 @@ final class PhotoListViewModel {
                 let urls = photos.compactMap { $0.url }
                 self.imageLoader.loadImages(from: urls) {
                     self.photoList.value = self.makePhotoList(with: photos)
+                    self.isLoading.value = false
                     self.page += 1
                 }
             case .failure(let error):
+                self.isLoading.value = false
                 errorHandler(error)
             }
         }
