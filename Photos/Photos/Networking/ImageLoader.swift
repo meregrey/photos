@@ -7,36 +7,55 @@
 
 import UIKit.UIImage
 
-struct ImageLoader: ImageLoadable {
+final class ImageLoader: ImageLoadable {
     static let shared = ImageLoader()
     
-    private let cache: Cache<URL, UIImage>
-    
-    init(cache: Cache<URL, UIImage> = .init()) {
-        self.cache = cache
+    private enum LoadingStatus {
+        case inProgress
+        case completed(UIImage)
+        case failed
     }
     
-    func loadImage(for url: URL, completion: @escaping (Result<UIImage, LoadingError>) -> Void) {
-        if let cachedImage = cache[url] {
-            completion(.success(cachedImage))
-            return
+    private let cache = Cache<URL, LoadingStatus>()
+    
+    private init() {}
+    
+    func loadImages(from urls: [URL], completion: @escaping () -> Void) {
+        let dispatchGroup = DispatchGroup()
+        
+        DispatchQueue.concurrentPerform(iterations: urls.count) { index in
+            let url = urls[index]
+            guard cache[url] == nil else { return }
+            dispatchGroup.enter()
+            loadImage(from: url) {
+                dispatchGroup.leave()
+            }
         }
         
-        DispatchQueue.global().async {
-            guard let data = try? Data(contentsOf: url) else {
-                completion(.failure(.invalidURL))
-                return
-            }
-            guard let image = UIImage(data: data)?.scaledToScreenWidth() else {
-                completion(.failure(.invalidImageData))
-                return
-            }
-            cache[url] = image
-            completion(.success(image))
+        dispatchGroup.notify(queue: DispatchQueue.global()) {
+            completion()
         }
     }
     
     func image(for url: URL) -> UIImage? {
-        return cache[url]
+        switch cache[url] {
+        case .completed(let image):
+            return image
+        default:
+            return nil
+        }
+    }
+    
+    private func loadImage(from url: URL, completion: @escaping () -> Void) {
+        do {
+            cache[url] = .inProgress
+            let data = try Data(contentsOf: url)
+            guard let image = UIImage(data: data)?.scaledToScreenWidth() else { throw LoadingError.invalidImageData }
+            cache[url] = .completed(image)
+            completion()
+        } catch {
+            cache[url] = .failed
+            completion()
+        }
     }
 }
