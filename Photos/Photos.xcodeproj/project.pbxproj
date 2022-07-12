@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		67343192287E3F5100AFDD89 /* ImageLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67343191287E3F5100AFDD89 /* ImageLoaderTests.swift */; };
 		67B6113A286349D200789870 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B61139286349D200789870 /* AppDelegate.swift */; };
 		67B6113C286349D200789870 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B6113B286349D200789870 /* SceneDelegate.swift */; };
 		67B61141286349D200789870 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67B6113F286349D200789870 /* Main.storyboard */; };
@@ -51,6 +52,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		67343191287E3F5100AFDD89 /* ImageLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderTests.swift; sourceTree = "<group>"; };
 		67B61136286349D200789870 /* Photos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Photos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67B61139286349D200789870 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		67B6113B286349D200789870 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -105,6 +107,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		67343190287E3F4000AFDD89 /* ImageLoader */ = {
+			isa = PBXGroup;
+			children = (
+				67343191287E3F5100AFDD89 /* ImageLoaderTests.swift */,
+			);
+			path = ImageLoader;
+			sourceTree = "<group>";
+		};
 		67B6112D286349D200789870 = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				67B611A1286431A800789870 /* PhotoListViewModel */,
+				67343190287E3F4000AFDD89 /* ImageLoader */,
 				67B6119728642B2400789870 /* DataLoader */,
 			);
 			path = PhotosTests;
@@ -383,6 +394,7 @@
 			files = (
 				67B611A5286433FF00789870 /* MockImageLoader.swift in Sources */,
 				67B6119928642B3400789870 /* DataLoaderTests.swift in Sources */,
+				67343192287E3F5100AFDD89 /* ImageLoaderTests.swift in Sources */,
 				67B611A72864344600789870 /* MockDataLoader.swift in Sources */,
 				67B611A32864322300789870 /* PhotoListViewModelTests.swift in Sources */,
 				67B6119B28642BB000789870 /* MockURLProtocol.swift in Sources */,
