@@ -30,7 +30,6 @@
 		67B611A32864322300789870 /* PhotoListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B611A22864322300789870 /* PhotoListViewModelTests.swift */; };
 		67B611A5286433FF00789870 /* MockImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B611A4286433FF00789870 /* MockImageLoader.swift */; };
 		67B611A72864344600789870 /* MockDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B611A62864344600789870 /* MockDataLoader.swift */; };
-		67B611AA2864563800789870 /* ImageLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B611A92864563800789870 /* ImageLoaderTests.swift */; };
 		67B611AC28652F6100789870 /* PhotoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B611AB28652F6100789870 /* PhotoListViewController.swift */; };
 		67B611AE286531E100789870 /* PhotoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B611AD286531E100789870 /* PhotoListCell.swift */; };
 		67B611B02865366F00789870 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B611AF2865366F00789870 /* UIView.swift */; };
@@ -78,7 +77,6 @@
 		67B611A22864322300789870 /* PhotoListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoListViewModelTests.swift; sourceTree = "<group>"; };
 		67B611A4286433FF00789870 /* MockImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockImageLoader.swift; sourceTree = "<group>"; };
 		67B611A62864344600789870 /* MockDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataLoader.swift; sourceTree = "<group>"; };
-		67B611A92864563800789870 /* ImageLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderTests.swift; sourceTree = "<group>"; };
 		67B611AB28652F6100789870 /* PhotoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoListViewController.swift; sourceTree = "<group>"; };
 		67B611AD286531E100789870 /* PhotoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoListCell.swift; sourceTree = "<group>"; };
 		67B611AF2865366F00789870 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
@@ -142,7 +140,6 @@
 			isa = PBXGroup;
 			children = (
 				67B611A1286431A800789870 /* PhotoListViewModel */,
-				67B611A82864562C00789870 /* ImageLoader */,
 				67B6119728642B2400789870 /* DataLoader */,
 			);
 			path = PhotosTests;
@@ -242,14 +239,6 @@
 				67B611A4286433FF00789870 /* MockImageLoader.swift */,
 			);
 			path = PhotoListViewModel;
-			sourceTree = "<group>";
-		};
-		67B611A82864562C00789870 /* ImageLoader */ = {
-			isa = PBXGroup;
-			children = (
-				67B611A92864563800789870 /* ImageLoaderTests.swift */,
-			);
-			path = ImageLoader;
 			sourceTree = "<group>";
 		};
 		67B611BD286935B000789870 /* PhotoDetail */ = {
@@ -394,7 +383,6 @@
 			files = (
 				67B611A5286433FF00789870 /* MockImageLoader.swift in Sources */,
 				67B6119928642B3400789870 /* DataLoaderTests.swift in Sources */,
-				67B611AA2864563800789870 /* ImageLoaderTests.swift in Sources */,
 				67B611A72864344600789870 /* MockDataLoader.swift in Sources */,
 				67B611A32864322300789870 /* PhotoListViewModelTests.swift in Sources */,
 				67B6119B28642BB000789870 /* MockURLProtocol.swift in Sources */,
