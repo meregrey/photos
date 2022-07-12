@@ -10,15 +10,17 @@ import UIKit.UIImage
 final class ImageLoader: ImageLoadable {
     static let shared = ImageLoader()
     
-    private enum LoadingStatus {
+    enum LoadingStatus {
         case inProgress
         case completed(UIImage)
         case failed
     }
     
-    private let cache = Cache<URL, LoadingStatus>()
+    private let cache: Cache<URL, LoadingStatus>
     
-    private init() {}
+    init(cache: Cache<URL, LoadingStatus> = .init()) {
+        self.cache = cache
+    }
     
     func loadImages(from urls: [URL], completion: @escaping () -> Void) {
         let dispatchGroup = DispatchGroup()
