@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6734318D287E3D5700AFDD89 /* ImageLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734318C287E3D5700AFDD89 /* ImageLoaderTests.swift */; };
 		6761035F287BA7E4009F9E4D /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761035E287BA7E4009F9E4D /* MockURLSession.swift */; };
 		67B6113A286349D200789870 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B61139286349D200789870 /* AppDelegate.swift */; };
 		67B6113C286349D200789870 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B6113B286349D200789870 /* SceneDelegate.swift */; };
@@ -52,6 +53,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6734318C287E3D5700AFDD89 /* ImageLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderTests.swift; sourceTree = "<group>"; };
 		6761035E287BA7E4009F9E4D /* MockURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
 		67B61136286349D200789870 /* Photos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Photos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67B61139286349D200789870 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -107,6 +109,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6734318B287E3D4C00AFDD89 /* ImageLoader */ = {
+			isa = PBXGroup;
+			children = (
+				6734318C287E3D5700AFDD89 /* ImageLoaderTests.swift */,
+			);
+			path = ImageLoader;
+			sourceTree = "<group>";
+		};
 		67B6112D286349D200789870 = {
 			isa = PBXGroup;
 			children = (
@@ -142,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				67B611A1286431A800789870 /* PhotoListViewModel */,
+				6734318B287E3D4C00AFDD89 /* ImageLoader */,
 				67B6119728642B2400789870 /* DataLoader */,
 			);
 			path = PhotosTests;
@@ -386,6 +397,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6734318D287E3D5700AFDD89 /* ImageLoaderTests.swift in Sources */,
 				67B6119928642B3400789870 /* DataLoaderTests.swift in Sources */,
 				67B611A72864344600789870 /* MockDataLoader.swift in Sources */,
 				6761035F287BA7E4009F9E4D /* MockURLSession.swift in Sources */,
