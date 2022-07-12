@@ -45,6 +45,14 @@ final class PhotoListViewController: UIViewController {
                 self?.tableView.insertRows(at: indexPaths, with: .automatic)
             }
         }
+        
+        viewModel.isLoading.bind { [weak self] isLoading in
+            DispatchQueue.main.async {
+                guard let indexPath = self?.tableView.indexPathsForVisibleRows?.filter({ $0.section == 1 }).first else { return }
+                guard let loadingCell = self?.tableView.cellForRow(at: indexPath) as? LoadingCell else { return }
+                loadingCell.animate(isLoading)
+            }
+        }
     }
     
     private func fetchPhotos() {
@@ -78,7 +86,6 @@ extension PhotoListViewController: UITableViewDataSource {
             return cell
         } else {
             let cell: LoadingCell = tableView.dequeueReusableCell(for: indexPath)
-            cell.startAnimating()
             return cell
         }
     }
