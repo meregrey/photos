@@ -15,14 +15,6 @@ final class PhotoListViewModel {
     private let imageLoader: ImageLoadable
     
     private var page: Int = 1
-    private var photosToAppend: [Photo] = [] {
-        didSet {
-            guard photosToAppend.count == countPerPage else { return }
-            photoList.value = makePhotoList()
-            page += 1
-            photosToAppend = []
-        }
-    }
     
     init(countPerPage: Int = 10,
          dataLoader: DataLoadable = DataLoader(),
@@ -38,16 +30,10 @@ final class PhotoListViewModel {
         dataLoader.fetch(with: endpoint) { (result: Result<[Photo], LoadingError>) in
             switch result {
             case .success(let photos):
-                photos.forEach { photo in
-                    guard let url = photo.url else { return }
-                    self.imageLoader.loadImage(for: url) { result in
-                        switch result {
-                        case .success(_):
-                            self.photosToAppend.append(photo)
-                        case .failure(let error):
-                            errorHandler(error)
-                        }
-                    }
+                let urls = photos.compactMap { $0.url }
+                self.imageLoader.loadImages(from: urls) {
+                    self.photoList.value = self.makePhotoList(with: photos)
+                    self.page += 1
                 }
             case .failure(let error):
                 errorHandler(error)
@@ -55,7 +41,7 @@ final class PhotoListViewModel {
         }
     }
     
-    private func makePhotoList() -> ([Photo], Range<Int>) {
+    private func makePhotoList(with photosToAppend: [Photo]) -> ([Photo], Range<Int>) {
         let existingCount = photoList.value.photos.count
         let range = existingCount..<(existingCount + countPerPage)
         var photos = photoList.value.photos
