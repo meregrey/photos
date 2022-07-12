@@ -22,6 +22,8 @@ final class PhotoListViewModelTests: XCTestCase {
     
     override func tearDown() {
         sut = nil
+        imageLoader = nil
+        dataLoader = nil
         super.tearDown()
     }
     
@@ -43,13 +45,14 @@ final class PhotoListViewModelTests: XCTestCase {
         dataLoader.photos = photos
         let expectation = XCTestExpectation()
         
-        // when
-        sut.photos.bind {
+        sut.photoList.bind {
+            if $0.photos.count == 0 { return }
             // then
-            if $0.count == 0 { return }
-            XCTAssertEqual($0.first?.userName, "name_0")
+            XCTAssertEqual($0.photos.first?.userName, "name_0")
             expectation.fulfill()
         }
+        
+        // when
         sut.fetchPhotos { _ in }
         wait(for: [expectation], timeout: 1)
     }
