@@ -18,7 +18,7 @@ final class ImageLoaderTests: XCTestCase {
     
     func testLoadImages() async {
         // given
-        let cache = Cache<URL, ImageLoader.LoadingResult>()
+        let cache = Cache<URL, LoadingStatus<UIImage>>()
         let url = URL(string: "test.com")!
         cache[url] = .completed(UIImage())
         sut = ImageLoader(cache: cache)
