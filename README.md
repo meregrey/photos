@@ -10,7 +10,6 @@
 - [GCD 및 Swift Concurrency 비교](#gcd-및-swift-concurrency-비교)
   - [네트워킹](#네트워킹)
   - [동시성](#동시성)
-  - [이미지 캐싱](#이미지-캐싱)
   - [가독성](#가독성)
   - [Main Queue](#main-queue)
 
@@ -128,44 +127,6 @@ func loadImages(from urls: [URL]) async {
 ```
 
 <p align="center"><img src="Assets/task-group.png" width="800" alt="Task Group"/></p>
-
-### 이미지 캐싱
-
-이미지와 같이 생성 비용이 많이 드는 데이터는 메모리 또는 디스크에 저장하고 재사용하는 것이 효율적이다. [Cache](https://github.com/meregrey/photos/blob/main/Photos/Photos/Common/Cache.swift)는 key-value를 자동으로 래핑해 클래스가 아닌 타입도 사용이 가능하며, 내부적으로 `NSCache`에 저장하므로 메모리가 부족한 경우 시스템에 의해 일부 항목이 제거된다.
-
-`ImageLoader`는 `Cache<URL, LoadingStatus<UIImage>>` 타입의 캐시를 포함한다. 이미지 로드 시작 시 작업이 실행 중임을 나타내는 `.inProgress`를 캐시에 저장하고, 이후 로드가 완료되면 결과에 따라 `.completed(image)` 또는 `.failed`를 저장한다. 이때 `.completed(image)`의 이미지는 [UIImage](https://github.com/meregrey/photos/blob/main/Photos/Photos/Common/Extensions/UIImage.swift) 익스텐션을 통해 구현한 `scaledToScreenWidth()` 메서드를 사용해 화면 너비에 맞게 축소한다.
-
-#### GCD
-
-이미지 로드가 동시적으로 실행되기 때문에, 여러 스레드에서 캐시를 업데이트하면 데이터 레이스(data race)가 발생할 수 있다. 이를 방지하기 위해 `Cache`가 `NSLock`을 포함하고, 변경 전후로 다른 스레드의 액세스를 차단 및 해제해 동시에 실행되지 않도록 한다.
-
-```swift
-final class Cache<Key: Hashable, Value> {
-    private let wrapped = NSCache<WrappedKey, WrappedValue>()
-    private let lock = NSLock()
-    
-    func insert(_ value: Value, for key: Key) {
-        lock.lock()
-        defer { lock.unlock() }
-        
-        wrapped.setObject(WrappedValue(value), forKey: WrappedKey(key))
-    }
-}
-```
-
-#### Swift Concurrency
-
-`ImageLoader`는 액터(actor)이므로 한 번에 하나의 작업만 캐시에 액세스할 수 있도록 허용한다. 따라서 GCD의 경우와 달리, `Cache` 자체에서 lock 기능을 구현할 필요가 없다.
-
-```swift
-final class Cache<Key: Hashable, Value> {
-    private let wrapped = NSCache<WrappedKey, WrappedValue>()
-    
-    func insert(_ value: Value, for key: Key) {
-        wrapped.setObject(WrappedValue(value), forKey: WrappedKey(key))
-    }
-}
-```
 
 ### 가독성
 
