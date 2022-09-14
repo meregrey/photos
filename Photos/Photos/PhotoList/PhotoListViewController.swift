@@ -42,22 +42,18 @@ final class PhotoListViewController: UIViewController {
     
     private func bindViewModel() {
         viewModel.photoList.bind { [weak self] photoList in
-            Task {
-                await MainActor.run {
-                    let indexPaths = photoList.latestRange.map { IndexPath(row: $0, section: 0) }
-                    self?.tableView.insertRows(at: indexPaths, with: .automatic)
-                }
+            Task { @MainActor in
+                let indexPaths = photoList.latestRange.map { IndexPath(row: $0, section: 0) }
+                self?.tableView.insertRows(at: indexPaths, with: .automatic)
             }
         }
         
         viewModel.isLoading.bind { [weak self] isLoading in
-            Task {
-                await MainActor.run {
-                    guard let indexPath = self?.tableView.indexPathsForVisibleRows?.filter({ $0.section == 1 }).first else { return }
-                    guard let loadingCell = self?.tableView.cellForRow(at: indexPath) as? LoadingCell else { return }
-                    loadingCell.animate(isLoading)
-                    self?.isLoading = isLoading
-                }
+            Task { @MainActor in
+                guard let indexPath = self?.tableView.indexPathsForVisibleRows?.filter({ $0.section == 1 }).first else { return }
+                guard let loadingCell = self?.tableView.cellForRow(at: indexPath) as? LoadingCell else { return }
+                loadingCell.animate(isLoading)
+                self?.isLoading = isLoading
             }
         }
     }
